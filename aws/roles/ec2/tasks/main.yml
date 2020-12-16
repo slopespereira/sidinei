@@ -1,0 +1,25 @@
+---
+# tasks file for ec2
+- name: Provision EC2 instance
+  ec2:
+     key_name: key-xxy
+     region: sa-east-1
+     instance_type: t2.micro
+     image: ami-013dd6e24f90aa93f
+     wait: yes
+     wait_timeout: 500
+     count: 1
+     instance_tags:
+        Name: EC2_TESTE_DBA
+        Environment: dev
+        db: MongoDB
+        Project: DBA_TESTE
+     volumes:
+        - device_name: /dev/xvda
+          volume_type: gp2
+          volume_size: 10
+     monitoring: yes
+     vpc_subnet_id: VPC-XYZ-00
+     assign_public_ip: no
+     group_id: SG-XYZ-00
+  register: ec2
